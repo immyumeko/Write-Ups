@@ -1,7 +1,8 @@
 # RootMe - THM 
-###### Goal: Get root
-###### Score: 210
-###### Difficulty: easy
+Goal   | Get root
+------ | ------
+Score  | 210
+Difficulty | easy
 ## nmap scan
 ```bash
 $ nmap -sV  10.10.233.180
