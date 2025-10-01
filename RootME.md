@@ -1,7 +1,7 @@
 # RootMe - THM 
-Description | A ctf for beginners, can you root me?
+**Description** | A ctf for beginners, can you root me?
  --    | --
-Difficulty | easy
+**Difficulty** | easy
 ## nmap scan
 ```bash
 $ nmap -sV  10.10.123.179
@@ -13,15 +13,17 @@ $ nmap -sV  10.10.123.179
   80/tcp open  http    Apache httpd 2.4.41 ((Ubuntu))
   Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 ```
-###### so, we can see we got to opens port SSH and HTTP
+
+> **Notes:** SSH and HTTP are open. I started with the web service because it often provides useful attack paths.
+
 
 ## HTTP
-`http://10.10.123.179`
+Visit: `http://10.10.123.179`
 ![alt txet](https://github.com/user-attachments/assets/79162dad-117b-4ab2-950d-111f4a36f747)
 
 ## Gobuster
 
-Now let's find for hidden directories
+Let's enumerate common directories:
 ```bash
 $ gobuster dir -u http://10.10.123.179 -w /usr/share/wordlists/dirb/common.txt
 ===============================================================
@@ -44,7 +46,7 @@ Starting gobuster in directory enumeration mode
 /server-status        (Status: 403) [Size: 276]
 /uploads              (Status: 301) [Size: 312] [--> http://10.10.123.179/uploads/]
 ```
-Cool. we have two hidden directories, first let's check for /panel directory
+> Notes: /panel and /uploads look interesting
 ## /panel Directory
 
 ![alt text](https://github.com/user-attachments/assets/4016356e-ea7a-46cd-beff-98b129749aa2)
