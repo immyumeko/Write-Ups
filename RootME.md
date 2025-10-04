@@ -1,4 +1,4 @@
-# RootMe - THM 
+# Tryhackme - [RootMe](https://tryhackme.com/room/rrootme) 
 **Description** | A ctf for beginners, can you root me?
  --    | --
 **Difficulty** | easy
