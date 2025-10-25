@@ -1,6 +1,6 @@
 <h1 align="center"> CTF Write-Ups by Immyumeko</h1>
 <p align="center" >
-  <em>Documenting every CTF and room i cmplete - step by step .</em>
+  <em>Documenting every CTF and room i complete - step by step .</em>
 </p>
 
 ***
