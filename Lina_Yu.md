@@ -1,9 +1,8 @@
-# Lina_Yu - [THM](https://tryhackme.com/room/lianyu)
+# Lian_Yu - [THM](https://tryhackme.com/room/lianyu)
 
 ## 1.Nmap
 
- I began by scanning the target machine withe nmap to finde open ports.
-
+ I started with an nmap scan to identify open ports on the target machine.
  ``` bash
 $ nmp 10.10.106.144 -sV
 PORT    STATE SERVICE VERSION
@@ -14,7 +13,7 @@ PORT    STATE SERVICE VERSION
 Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
 ```
 
-The scan showed several open ports, including web server
+The scan showed several open ports, including HTTP, FTP,SSH service
 
 ## 2.Web Enummeration
 
@@ -63,23 +62,51 @@ The scan showed several open ports, including web server
 
 #### The images cotained hidden data requiring passphrase
 
-### Method 1
-#### The leave_me_alone.png file had a corrupted signature. i researched online and fixed the PNG signature to maket readable, and i found the passphares
+### Method 1: Manual Signature Fix
+#### The leave_me_alone.png file had a corrupted signature. i researched the correct PNG and fixed using hexedit
+### HexEdit Commands:
+```bash
+$ hexedit leave_me_alone.png
+```
 ![alt](https://github.com/user-attachments/assets/e596f5e1-df6f-481d-977f-b99380b429de)
 ![alt](https://github.com/user-attachments/assets/8f277cad-5f86-48ea-8f3a-25834fd0a6bd)
-## Method 2
+#### Tha result
+![alt](https://github.com/user-attachments/assets/9361bca2-e466-4518-b063-6649673d856b)
+
+## Method 2: Automated Brute-force
 
 #### Used stegseek with rockyou.txt wordlist 
-![alt](https://github.com/user-attachments/assets/917b3bb3-2648-446a-8b27-58afe752fad3)
+![alt](https://github.com/user-attachments/assets/39b1697d-378d-4e85-bee8-a9ebcc831b0c)
 
 
+## Data Extraction
+#### Using the passphrase with steghide, i extracted hidden data
+![alt](https://github.com/user-attachments/assets/b2d26999-fddf-4649-afc1-869b8b80d56d)
+#### This revealed a ZIP archive. After extraction, I found multiple files and the password was in shado file
+![alt](https://github.com/user-attachments/assets/9ab5c3ec-8775-4928-8388-9655608ab087)
 
+## 6.User Access
 
+#### I attempted SSH with vigilante user but failed. Remembering the FTP user slade, I tried SSH with that username, which succeeded
+![alt](https://github.com/user-attachments/assets/4000e4cc-2e84-472c-b66f-b83e5fc0be79)
 
+### User Flag:
+![alt](https://github.com/user-attachments/assets/db450b3e-b819-47e6-a830-fcfd7bb6e12e)
 
+## 7. Privilege Escalation
+#### Sudo Permissions Check
+##### Checked what commands i could run as root:
+![alt](https://github.com/user-attachments/assets/19055f3f-c411-49a8-a426-12c2f6971bc1)
 
+## GTFOBins Exploitation
+#### I found the appropriate exploit for the vulnerable command on [GTFOBins](https://gtfobins.github.io/gtfobins/pkexec/#sudo) and gained root access
 
+![alt](https://github.com/user-attachments/assets/cc82e90d-55c3-4f13-8862-9c3ae54c68db)
 
+## Root Flag
+![alt](https://github.com/user-attachments/assets/ec1048f2-253c-4271-b36a-099c2a5d60d4)
+
+#### Thanks for reading! i hope this write-up was helpful :)
 
 
 
