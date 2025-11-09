@@ -12,6 +12,7 @@ Here you'll find all the rooms and boxes i've completed - each file is a detaile
 |--------|--------|--------|
 | [RootMe](./Rootme.md)| Easy | Completed|
 | [Bounty Hacker](./Bounty-Hacker.md)| Easy | Completed|
+| [Lian_Yu](./Lian_Yu.md)| Easy | Completed|
 
 ## Tools i Use 
 `nmap` . `hydra`. `gobuster`. `Burp Suite`. `Python`. `Linux`
