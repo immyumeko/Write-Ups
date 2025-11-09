@@ -4,7 +4,7 @@
 
  I started with an nmap scan to identify open ports on the target machine.
  ``` bash
-$ nmp 10.10.106.144 -sV
+$ nmap 10.10.106.144 -sV
 PORT    STATE SERVICE VERSION
 21/tcp  open  ftp     vsftpd 3.0.2
 22/tcp  open  ssh     OpenSSH 6.7p1 Debian 5+deb8u8 (protocol 2.0)
@@ -15,7 +15,7 @@ Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
 
 The scan showed several open ports, including HTTP, FTP,SSH service
 
-## 2.Web Enummeration
+## 2.Web Enumeration
 
 #### I started by checking the website on port 80. The main page didn't have any useful information.
 ![alt](https://github.com/user-attachments/assets/b8ffd4d4-287c-4427-b106-8a31056bdc25)
@@ -38,7 +38,7 @@ The scan showed several open ports, including HTTP, FTP,SSH service
 ![alt](https://github.com/user-attachments/assets/0b79358f-2337-4155-a872-401a3af967fd)
 
 ### The /2100 Directory
-#### The /2100 page had a video that wouldn't play. The source code had a hidden comment mentioning .ticket could be file 
+#### The /2100 page had a video that wouldn't play. The source code had a hidden comment mentioning .ticket could be a file extension
 ![alt](https://github.com/user-attachments/assets/6ae5e122-f69e-437b-806c-844399be003f)
 
 #### I scanned for files with .ticket extension in /2100
@@ -47,7 +47,7 @@ The scan showed several open ports, including HTTP, FTP,SSH service
 ![alt](https://github.com/user-attachments/assets/f939adac-a850-448e-a0f1-516eb7b3bd79)
 
 ## 3.Password Decoding
-#### The password from green_arrow.ticket didn't work for FTP. I used Cyberchef and found it was Base58 encoded. Decoding revealed the actule password.
+#### The password from green_arrow.ticket didn't work for FTP. I used Cyberchef and found it was Base58 encoded. Decoding revealed the actul password.
 ![alt](https://github.com/user-attachments/assets/ae8d4195-8a0a-4969-92bd-31924ec8da67)
 
 ## FTP Exploration
@@ -60,7 +60,7 @@ The scan showed several open ports, including HTTP, FTP,SSH service
 
 ## 5.Steganography Analysis
 
-#### The images cotained hidden data requiring passphrase
+#### The images contained hidden data requiring passphrase
 
 ### Method 1: Manual Signature Fix
 #### The leave_me_alone.png file had a corrupted signature. i researched the correct PNG and fixed using hexedit
@@ -70,12 +70,12 @@ $ hexedit leave_me_alone.png
 ```
 ![alt](https://github.com/user-attachments/assets/e596f5e1-df6f-481d-977f-b99380b429de)
 ![alt](https://github.com/user-attachments/assets/8f277cad-5f86-48ea-8f3a-25834fd0a6bd)
-#### Tha result
+#### The result
 ![alt](https://github.com/user-attachments/assets/9361bca2-e466-4518-b063-6649673d856b)
 
 ## Method 2: Automated Brute-force
 
-#### Used stegseek with rockyou.txt wordlist 
+#### Used stegseek with rockyou.txt wordlist to attempt automated cracking of the passphrase 
 ![alt](https://github.com/user-attachments/assets/39b1697d-378d-4e85-bee8-a9ebcc831b0c)
 
 
